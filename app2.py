@@ -132,16 +132,19 @@ uploaded_file = st.file_uploader("이미지를 업로드해주세요", type=["jp
 if uploaded_file is not None:
     img = Image.open(uploaded_file).convert('RGB')
     st.image(img, caption="업로드한 이미지", use_container_width=True)
-
-
-    # 전처리
-    img_resized = ImageOps.fit(img, (299, 299), Image.Resampling.LANCZOS)
-    img_array = image.img_to_array(img_resized)
-    img_array = np.expand_dims(img_array, axis=0) / 255.0
-
-    # 예측
-    pred = model.predict(img_array)
-
+    
+    try:
+        try:
+            resample_mode = Image.Resampling.LANCZOS
+        except AttributeError:
+            resample_mode = Image.ANTIALIAS
+        
+        img_resized = ImageOps.fit(img, (299, 299), resample_mode)
+        img_array = image.img_to_array(img_resized)
+        img_array = np.expand_dims(img_array, axis=0) / 255.0
+        
+        pred = model.predict(img_array)
+        
     # 상위 3개 클래스 가져오기
     top_3_indices = np.argsort(pred[0])[::-1][:3]  # 확률이 높은 순서대로 정렬된 인덱스
     top_3_results = [(food_list[i], pred[0][i] * 100) for i in top_3_indices]
