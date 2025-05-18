@@ -1,6 +1,6 @@
 streamlit
-tensorflow==2.9
+tensorflow==2.9.0
 matplotlib
 pillow
 numpy
-Python 3.9
+Python==3.9
