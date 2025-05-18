@@ -7,7 +7,7 @@ from tensorflow.keras.preprocessing import image
 from PIL import Image, ImageOps
 import io
 
-plt.rc('font', family='NanumGothic') 
+plt.rc('font', family='Malgun Gothic')
 plt.rc('axes', unicode_minus=False)
 
 # 음식 목록 (영어 이름, 한글 이름, 혈당 지수)
