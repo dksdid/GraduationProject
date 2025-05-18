@@ -150,8 +150,13 @@ if uploaded_file is not None:
 
     # 1순위 결과로 상세 정보 추출
     top1_class = top_3_results[0][0]
-    korean_name, gi_value = food_dict.get(top1_class, ("알 수 없음", "-"))
-
+    top1_confidence = top_3_results[0][1]  # Top1 확률(%)
+    if top1_confidence >= 40:
+        korean_name, gi_value = food_dict.get(top1_class, ("-", "-"))
+    else:
+        korean_name = "분류할 수 없는 사진입니다."
+        gi_value = "-"
+        
     # GI 분류
     if gi_value != "-":
         gi_value = int(gi_value)
@@ -168,8 +173,11 @@ if uploaded_file is not None:
         gi_category = ""
         gi_color = 'black'
 
-    result_text = f"{korean_name} ({top1_class})\n혈당 지수: {gi_value} {gi_category}"
-
+    if top1_confidence >= 40:
+        result_text = f"{korean_name} ({top1_class})\n혈당 지수: {gi_value} {gi_category}"
+    else:
+        result_text = f"{korean_name}"
+        
     # Matplotlib 시각화
     fig, ax = plt.subplots()
     ax.imshow(img_resized)
@@ -177,8 +185,11 @@ if uploaded_file is not None:
     ax.set_title(result_text,fontproperties=font_prop, color=gi_color, fontsize=14)
     st.pyplot(fig)
 
-    # 예측 결과 출력
-    st.success(f"✅ 예측 결과: {result_text}")
+     # 예측 결과 출력
+    if top1_confidence < 40:
+        st.error("❌ 분류할 수 없는 사진입니다.")
+    else:
+        st.success(f"✅ 예측 결과: {result_text}")
 
     # Top-3 예측 확률 출력
     st.subheader("📊 상위 3개 예측 결과")
