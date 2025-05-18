@@ -187,5 +187,5 @@ if uploaded_file is not None:
             kr_label = food_dict.get(label, ("알 수 없음", "-"))[0]
             st.write(f"{rank}위: {kr_label} ({label}) - {confidence:.2f}%")
 
-    else:
-        st.info("👆 위에 이미지를 업로드해주세요.")
+else:
+    st.info("👆 위에 이미지를 업로드해주세요.")
