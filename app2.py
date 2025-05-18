@@ -145,47 +145,47 @@ if uploaded_file is not None:
         
         pred = model.predict(img_array)
         
-    # 상위 3개 클래스 가져오기
-    top_3_indices = np.argsort(pred[0])[::-1][:3]  # 확률이 높은 순서대로 정렬된 인덱스
-    top_3_results = [(food_list[i], pred[0][i] * 100) for i in top_3_indices]
+        # 상위 3개 클래스 가져오기
+        top_3_indices = np.argsort(pred[0])[::-1][:3]  # 확률이 높은 순서대로 정렬된 인덱스
+        top_3_results = [(food_list[i], pred[0][i] * 100) for i in top_3_indices]
 
-    # 1순위 결과로 상세 정보 추출
-    top1_class = top_3_results[0][0]
-    korean_name, gi_value = food_dict.get(top1_class, ("알 수 없음", "-"))
+        # 1순위 결과로 상세 정보 추출
+        top1_class = top_3_results[0][0]
+        korean_name, gi_value = food_dict.get(top1_class, ("알 수 없음", "-"))
 
-    # GI 분류
-    if gi_value != "-":
-        gi_value = int(gi_value)
-        if gi_value >= 70:
-            gi_category = "(고GI 식품입니다.)"
-            gi_color = 'red'
-        elif 56 <= gi_value <= 69:
-            gi_category = "(중간GI 식품입니다.)"
-            gi_color = 'orange'
-        else:
-            gi_category = "(저GI 식품입니다.)"
-            gi_color = 'green'
+        # GI 분류
+        if gi_value != "-":
+            gi_value = int(gi_value)
+            if gi_value >= 70:
+                gi_category = "(고GI 식품입니다.)"
+                gi_color = 'red'
+            elif 56 <= gi_value <= 69:
+                gi_category = "(중간GI 식품입니다.)"
+                gi_color = 'orange'
+            else:
+                gi_category = "(저GI 식품입니다.)"
+                gi_color = 'green'
+        else:    
+            gi_category = ""
+            gi_color = 'black'
+
+        result_text = f"{korean_name} ({top1_class})\n혈당 지수: {gi_value} {gi_category}"
+
+        # Matplotlib 시각화
+        fig, ax = plt.subplots()
+        ax.imshow(img_resized)
+        ax.axis('off')
+        ax.set_title(result_text, color=gi_color, fontsize=14)
+        st.pyplot(fig)
+    
+        # 예측 결과 출력
+        st.success(f"✅ 예측 결과: {result_text}")
+    
+        # Top-3 예측 확률 출력
+        st.subheader("📊 상위 3개 예측 결과")
+        for rank, (label, confidence) in enumerate(top_3_results, start=1):
+            kr_label = food_dict.get(label, ("알 수 없음", "-"))[0]
+            st.write(f"{rank}위: {kr_label} ({label}) - {confidence:.2f}%")
+
     else:
-        gi_category = ""
-        gi_color = 'black'
-
-    result_text = f"{korean_name} ({top1_class})\n혈당 지수: {gi_value} {gi_category}"
-
-    # Matplotlib 시각화
-    fig, ax = plt.subplots()
-    ax.imshow(img_resized)
-    ax.axis('off')
-    ax.set_title(result_text, color=gi_color, fontsize=14)
-    st.pyplot(fig)
-
-    # 예측 결과 출력
-    st.success(f"✅ 예측 결과: {result_text}")
-
-    # Top-3 예측 확률 출력
-    st.subheader("📊 상위 3개 예측 결과")
-    for rank, (label, confidence) in enumerate(top_3_results, start=1):
-        kr_label = food_dict.get(label, ("알 수 없음", "-"))[0]
-        st.write(f"{rank}위: {kr_label} ({label}) - {confidence:.2f}%")
-
-else:
-    st.info("👆 위에 이미지를 업로드해주세요.")
+        st.info("👆 위에 이미지를 업로드해주세요.")
