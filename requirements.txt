@@ -3,3 +3,4 @@ tensorflow==2.18.0
 matplotlib
 pillow
 numpy
+Python 3.9
