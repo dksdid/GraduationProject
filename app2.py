@@ -13,9 +13,6 @@ import subprocess
 subprocess.run(['apt-get', 'update'])
 subprocess.run(['apt-get', 'install', '-y', 'fonts-nanum'])
 
-fm._get_font.cache_clear()
-fm._rebuild()  # 안 되는 경우 무시해도 됨
-
 # 3. 폰트 설정
 plt.rc('font', family='NanumGothic')
 plt.rc('axes', unicode_minus=False)
