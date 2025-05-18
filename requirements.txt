@@ -2,5 +2,5 @@ streamlit
 tensorflow==2.9.0
 protobuf==3.19.4
 numpy==1.23.5
-matplotlib
+matplotlib==3.9.4
 pillow==11.1.0
