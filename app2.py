@@ -133,12 +133,13 @@ if uploaded_file is not None:
     img_bytes = uploaded_file.getvalue()
     st.image(img_bytes, caption="업로드한 이미지", use_column_width=True)
 
+    img = Image.open(uploaded_file)
 
     # 전처리
     img_resized = ImageOps.fit(img, (299, 299), Image.Resampling.LANCZOS)
     img_array = image.img_to_array(img_resized)
     img_array = np.expand_dims(img_array, axis=0) / 255.0
-
+    
     # 예측
     pred = model.predict(img_array)
 
