@@ -6,8 +6,18 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from PIL import Image, ImageOps
 import io
+import matplotlib.font_manager as fm
+import subprocess
 
-plt.rc('font', family='Malgun Gothic')
+# 1. 폰트 설치 (Streamlit Cloud 런타임에서 매번 실행해야 할 수 있음)
+subprocess.run(['apt-get', 'update'])
+subprocess.run(['apt-get', 'install', '-y', 'fonts-nanum'])
+
+# 2. matplotlib 폰트 캐시 재생성
+fm._rebuild()
+
+# 3. 폰트 설정
+plt.rc('font', family='NanumGothic')
 plt.rc('axes', unicode_minus=False)
 
 # 음식 목록 (영어 이름, 한글 이름, 혈당 지수)
