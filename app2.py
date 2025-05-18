@@ -120,10 +120,7 @@ food_dict = {
 food_list = sorted(list(food_dict.keys()))
 
 # 모델 로드
-@st.cache_resource
-def load_my_model():
-    return load_model("model_trained3_extended4.h5")
-model = load_my_model()
+model = load_model("model_trained3_extended4.h5")
 
 # 제목
 st.title("🍽️ 당뇨병 환자를 위한 음식 분류 모델")
