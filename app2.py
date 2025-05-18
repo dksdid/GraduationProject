@@ -9,7 +9,7 @@ import io
 import matplotlib.font_manager as fm
 
 
-font_path = 'GraduationProject/NanumGothic-Regular.ttf'
+font_path = 'NanumGothic-Regular.ttf'
 font_prop = fm.FontProperties(fname=font_path)
 
 # 음식 목록 (영어 이름, 한글 이름, 혈당 지수)
