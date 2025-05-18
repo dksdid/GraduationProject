@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.models import load_model
-from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.preprocessing import image
 from PIL import Image, ImageOps
 import io
@@ -121,7 +120,7 @@ food_dict = {
 food_list = sorted(list(food_dict.keys()))
 
 # 모델 로드
-model = load_model("model_trained3_extended4.h5", custom_objects={"MobileNetV2": MobileNetV2})
+model = load_model("model_trained3_extended4.h5")
 
 # 제목
 st.title("🍽️ 당뇨병 환자를 위한 음식 분류 모델")
