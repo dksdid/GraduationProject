@@ -3,4 +3,4 @@ tensorflow==2.9.0
 protobuf==3.19.4
 numpy==1.23.5
 matplotlib
-pillow>=9.1.0
+pillow==11.1.0
