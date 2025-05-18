@@ -146,7 +146,7 @@ if uploaded_file is not None:
         pred = model.predict(img_array)
         
         # 상위 3개 클래스 가져오기
-        top_3_indices = np.argsort(pred[0])[::-1][:3]  # 확률이 높은 순서대로 정렬된 인덱스
+        top_3_indices = np.argsort(pred[0])[::-1][:3]
         top_3_results = [(food_list[i], pred[0][i] * 100) for i in top_3_indices]
 
         # 1순위 결과로 상세 정보 추출
@@ -186,6 +186,9 @@ if uploaded_file is not None:
         for rank, (label, confidence) in enumerate(top_3_results, start=1):
             kr_label = food_dict.get(label, ("알 수 없음", "-"))[0]
             st.write(f"{rank}위: {kr_label} ({label}) - {confidence:.2f}%")
+
+    except Exception as e:
+        st.error(f"오류가 발생했습니다: {e}")
 
 else:
     st.info("👆 위에 이미지를 업로드해주세요.")
