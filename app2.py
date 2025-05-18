@@ -7,15 +7,10 @@ from tensorflow.keras.preprocessing import image
 from PIL import Image, ImageOps
 import io
 import matplotlib.font_manager as fm
-import subprocess
 
-# 1. 폰트 설치 (Streamlit Cloud 런타임에서 매번 실행해야 할 수 있음)
-subprocess.run(['apt-get', 'update'])
-subprocess.run(['apt-get', 'install', '-y', 'fonts-nanum'])
 
-# 3. 폰트 설정
-plt.rc('font', family='NanumGothic')
-plt.rc('axes', unicode_minus=False)
+font_path = 'GraduationProject/NanumGothic-Regular.ttf'
+font_prop = fm.FontProperties(fname=font_path)
 
 # 음식 목록 (영어 이름, 한글 이름, 혈당 지수)
 food_dict = {
@@ -179,7 +174,7 @@ if uploaded_file is not None:
     fig, ax = plt.subplots()
     ax.imshow(img_resized)
     ax.axis('off')
-    ax.set_title(result_text, color=gi_color, fontsize=14)
+    ax.set_title(result_text,fontproperties=font_prop, color=gi_color, fontsize=14)
     st.pyplot(fig)
 
     # 예측 결과 출력
