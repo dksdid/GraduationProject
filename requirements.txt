@@ -1,5 +1,6 @@
 streamlit
 tensorflow==2.9.0
+protobuf==3.19.4
 matplotlib
 pillow
 numpy
