@@ -12,9 +12,6 @@ import io
 subprocess.run(['apt-get', 'update'])
 subprocess.run(['apt-get', 'install', '-y', 'fonts-nanum'])
 
-# 캐시 재빌드
-matplotlib.font_manager._rebuild()
-
 # 한글 폰트 설정
 plt.rc('font', family='NanumGothic')
 plt.rc('axes', unicode_minus=False)
