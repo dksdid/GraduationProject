@@ -135,7 +135,13 @@ if uploaded_file is not None:
 
 
     # 전처리
-    img_resized = ImageOps.fit(img, (299, 299), Image.Resampling.LANCZOS)
+        # 수정 후 (호환성 최적화)
+    try:
+        # 최신 Pillow 버전용
+        img_resized = ImageOps.fit(img, (299, 299), Image.Resampling.LANCZOS)
+    except AttributeError:
+        # 구버전 Pillow용
+        img_resized = ImageOps.fit(img, (299, 299), Image.LANCZOS)
     img_array = image.img_to_array(img_resized)
     img_array = np.expand_dims(img_array, axis=0) / 255.0
 
