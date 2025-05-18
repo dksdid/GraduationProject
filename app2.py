@@ -130,8 +130,8 @@ uploaded_file = st.file_uploader("이미지를 업로드해주세요", type=["jp
 
 # 이미지 처리 및 예측
 if uploaded_file is not None:
-    img = Image.open(uploaded_file).convert('RGB')
-    st.image(img, caption="업로드한 이미지", use_container_width=True)
+    img_bytes = uploaded_file.getvalue()
+    st.image(img_bytes, caption="업로드한 이미지", use_column_width=True)
 
 
     # 전처리
