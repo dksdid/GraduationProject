@@ -7,6 +7,9 @@ from tensorflow.keras.preprocessing import image
 from PIL import Image, ImageOps
 import io
 
+plt.rc('font', family='NanumGothic') 
+plt.rc('axes', unicode_minus=False)
+
 # 음식 목록 (영어 이름, 한글 이름, 혈당 지수)
 food_dict = {
     "Apple Pie": ("애플 파이", 70),
